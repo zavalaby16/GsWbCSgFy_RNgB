@@ -17,9 +17,6 @@
     display: block;
     background: black;
     image-rendering: pixelated;
-
-    width: 100vw;
-    height: 100vh;
 }
 </style>
 </head>
@@ -33,6 +30,31 @@ const ctx = canvas.getContext("2d");
 
 canvas.width = 900;
 canvas.height = 300;
+function resizeCanvas() {
+    const aspectRatio = canvas.width / canvas.height;
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    if (screenHeight > screenWidth) {
+        // 📱 MODO VERTICAL
+        const newWidth = screenWidth;
+        const newHeight = newWidth / aspectRatio;
+
+        canvas.style.width = newWidth + "px";
+        canvas.style.height = newHeight + "px";
+    } else {
+        // 📱🖥 MODO HORIZONTAL
+        const newHeight = screenHeight;
+        const newWidth = newHeight * aspectRatio;
+
+        canvas.style.width = newWidth + "px";
+        canvas.style.height = newHeight + "px";
+    }
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
 let groundY = 230;
 let gravity = 1.0;
