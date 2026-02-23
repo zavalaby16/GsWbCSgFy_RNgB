@@ -36,12 +36,29 @@ function resizeCanvas() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    let newWidth = screenWidth;
-    let newHeight = newWidth / aspectRatio;
+    let newWidth;
+    let newHeight;
 
-    if (newHeight > screenHeight) {
+    if (screenHeight > screenWidth) {
+        // 📱 VERTICAL
+        // usamos el 90% del alto disponible
+        newHeight = screenHeight * 0.9;
+        newWidth = newHeight * aspectRatio;
+
+        // si se pasa del ancho, ajustamos
+        if (newWidth > screenWidth) {
+            newWidth = screenWidth;
+            newHeight = newWidth / aspectRatio;
+        }
+    } else {
+        // 🖥 HORIZONTAL
         newHeight = screenHeight;
         newWidth = newHeight * aspectRatio;
+
+        if (newWidth > screenWidth) {
+            newWidth = screenWidth;
+            newHeight = newWidth / aspectRatio;
+        }
     }
 
     canvas.style.width = newWidth + "px";
