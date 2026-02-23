@@ -36,25 +36,23 @@ function resizeCanvas() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    if (screenHeight > screenWidth) {
-        // 📱 VERTICAL → usar más altura
-        const newHeight = screenHeight * 0.7;  // usa 70% del alto
-        const newWidth = newHeight * aspectRatio;
+    // Intentamos usar todo el ancho
+    let newWidth = screenWidth;
+    let newHeight = newWidth / aspectRatio;
 
-        canvas.style.width = newWidth + "px";
-        canvas.style.height = newHeight + "px";
-    } else {
-        // 🖥 / 📱 HORIZONTAL → comportamiento normal
-        const newHeight = screenHeight;
-        const newWidth = newHeight * aspectRatio;
-
-        canvas.style.width = newWidth + "px";
-        canvas.style.height = newHeight + "px";
+    // Si se pasa del alto disponible, ajustamos por altura
+    if (newHeight > screenHeight) {
+        newHeight = screenHeight;
+        newWidth = newHeight * aspectRatio;
     }
+
+    canvas.style.width = newWidth + "px";
+    canvas.style.height = newHeight + "px";
 }
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
+
 let groundY = 230;
 let gravity = 1.0;
 let gameSpeed = 3.5;
