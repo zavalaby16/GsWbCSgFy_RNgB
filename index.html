@@ -12,8 +12,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    min-height: 100vh;
 }
     canvas {
     display: block;
@@ -521,6 +519,13 @@ canvas.addEventListener('touchstart', function(e) {
 }, { passive: false });
 
 showMessage("System ready");
+function setRealHeight() {
+    document.body.style.height = window.innerHeight + "px";
+}
+
+window.addEventListener("resize", setRealHeight);
+setRealHeight();
+
 update();
 
 if ("serviceWorker" in navigator) {
