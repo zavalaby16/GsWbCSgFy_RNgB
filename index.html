@@ -496,7 +496,7 @@ document.addEventListener("keydown", function(e) {
 });
 
 // --- CONTROLES TÁCTILES (Corregidos) ---
-canvas.addEventListener('touchstart', function(e) {
+document.addEventListener('touchstart', function(e) {
     if (e.cancelable) e.preventDefault(); 
     
     if (isPaused) {
