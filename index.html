@@ -286,6 +286,10 @@ function update() {
     if (isPaused) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        if (window.innerHeight > window.innerWidth) {
+        ctx.save();
+        ctx.scale(1.5, 1.5);  // Ajusta este valor si quieres más grande
+}
         ctx.textAlign = "center";
         ctx.fillStyle = "white";
         ctx.font = "bold 28px monospace";
@@ -293,6 +297,9 @@ function update() {
         ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
         ctx.font = "italic 16px monospace";
         ctx.fillText(currentPauseMsg, canvas.width / 2, canvas.height / 2 + 30);
+        if (window.innerHeight > window.innerWidth) {
+    ctx.restore();
+}
         requestAnimationFrame(update);
         return;
     }
