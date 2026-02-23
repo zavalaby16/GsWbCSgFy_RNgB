@@ -31,28 +31,21 @@ const ctx = canvas.getContext("2d");
 canvas.width = 900;
 canvas.height = 300;
 function resizeCanvas() {
+    const aspectRatio = canvas.width / canvas.height;
+
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    if (screenHeight > screenWidth) {
-        // 📱 VERTICAL
-        canvas.style.width = screenWidth + "px";
-        canvas.style.height = (screenHeight * 0.85) + "px";
-    } else {
-        // 📱🖥 HORIZONTAL (mantener proporción)
-        const aspectRatio = canvas.width / canvas.height;
+    let newWidth = screenWidth;
+    let newHeight = newWidth / aspectRatio;
 
-        let newHeight = screenHeight;
-        let newWidth = newHeight * aspectRatio;
-
-        if (newWidth > screenWidth) {
-            newWidth = screenWidth;
-            newHeight = newWidth / aspectRatio;
-        }
-
-        canvas.style.width = newWidth + "px";
-        canvas.style.height = newHeight + "px";
+    if (newHeight > screenHeight) {
+        newHeight = screenHeight;
+        newWidth = newHeight * aspectRatio;
     }
+
+    canvas.style.width = newWidth + "px";
+    canvas.style.height = newHeight + "px";
 }
 
 window.addEventListener("resize", resizeCanvas);
