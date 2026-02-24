@@ -7,15 +7,14 @@
 <style>
     body {
     margin: 0;
-    background: linear-gradient(to bottom, #000000, #111111);
+    background: black;
 
     display: flex;
     justify-content: center;
     align-items: center;
-}
-   canvas {
+
+    min-height: canvas {
     display: block;
-    background: black;
     image-rendering: pixelated;
 }
 </style>
@@ -36,29 +35,13 @@ function resizeCanvas() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    let newWidth;
-    let newHeight;
+    let newWidth = screenWidth;
+    let newHeight = newWidth / aspectRatio;
 
-    if (screenHeight > screenWidth) {
-        // 📱 VERTICAL
-        // usamos el 90% del alto disponible
-        newHeight = screenHeight * 0.9;
-        newWidth = newHeight * aspectRatio;
-
-        // si se pasa del ancho, ajustamos
-        if (newWidth > screenWidth) {
-            newWidth = screenWidth;
-            newHeight = newWidth / aspectRatio;
-        }
-    } else {
-        // 🖥 HORIZONTAL
+    // Si se pasa del alto disponible, ajustamos por altura
+    if (newHeight > screenHeight) {
         newHeight = screenHeight;
         newWidth = newHeight * aspectRatio;
-
-        if (newWidth > screenWidth) {
-            newWidth = screenWidth;
-            newHeight = newWidth / aspectRatio;
-        }
     }
 
     canvas.style.width = newWidth + "px";
@@ -299,8 +282,9 @@ function update() {
     // --- LÓGICA DE PAUSA ---
     if (isPaused) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        if (window.innerHeight > window.innerWidth) {
+        ctx.fillRect(0, 0, canvas.width, canvas.ctx.fillStyle = "black";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (window.innerHeight > window.innerWidth) {
         ctx.save();
         ctx.scale(1.7, 1.7);  // Ajusta este valor si quieres más grande
 }
