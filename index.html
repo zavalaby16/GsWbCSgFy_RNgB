@@ -19,9 +19,8 @@
 }
     canvas {
     display: block;
-    margin: auto;
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    background: black;
+    image-rendering: pixelated;
 }
 </style>
 </head>
@@ -313,18 +312,7 @@ function update() {
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-   if (window.innerHeight > window.innerWidth) {
-    ctx.save();
 
-    const scale = 1.5;
-
-    ctx.translate(
-        (canvas.width - canvas.width / scale) / 2,
-        (canvas.height - canvas.height / scale) / 2
-    );
-
-    ctx.scale(scale, scale);
-}
     if (!gameStarted) {
         // --- PANTALLA DE INICIO MINIMALISTA ---
         // Aquí NO llamamos a drawMonkey ni a drawGround
@@ -514,9 +502,6 @@ function update() {
                 messageTimer--;}
         }
     }
-    if (window.innerHeight > window.innerWidth) {
-    ctx.restore();
-}
     requestAnimationFrame(update);
 }
 
@@ -570,6 +555,7 @@ showMessage("System ready");
 update();
 
 if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
     navigator.serviceWorker.register("./sw.js")
       .then(() => console.log("Service Worker registrado"))
       .catch(err => console.log("SW error:", err));
