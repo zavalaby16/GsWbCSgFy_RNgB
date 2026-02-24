@@ -11,21 +11,23 @@
 <style>
   body {
     margin: 0;
+    padding: 0; /* Asegúrate de resetear padding */
     background: black;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     height: 100vh;
+    width: 100vw; /* Asegura el ancho total */
     overflow: hidden;
 }
 
 canvas {
+    /* No le pongas width/height fijo aquí, deja que JS lo maneje */
     display: block;
-    background: black;
+    background: #111; /* Un color ligeramente distinto ayuda a debuguear */
     image-rendering: pixelated;
 }
+
 </style>
 </head>
 <body>
@@ -40,25 +42,35 @@ canvas.width = 900;
 canvas.height = 300;
 
 function resizeCanvas() {
-    const aspectRatio = canvas.width / canvas.height;
+    // Usamos los atributos internos del canvas para el cálculo
+    const internalWidth = canvas.width;
+    const internalHeight = canvas.height;
+    const aspectRatio = internalWidth / internalHeight;
 
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    let newWidth = screenWidth;
-    let newHeight = newWidth / aspectRatio;
+    let newWidth, newHeight;
 
-    if (newHeight > screenHeight) {
+    // Intentamos ajustar al ancho de la pantalla
+    if (screenWidth / screenHeight < aspectRatio) {
+        // La pantalla es más "flaca" que el canvas
+        newWidth = screenWidth;
+        newHeight = screenWidth / aspectRatio;
+    } else {
+        // La pantalla es más "ancha" que el canvas
         newHeight = screenHeight;
-        newWidth = newHeight * aspectRatio;
+        newWidth = screenHeight * aspectRatio;
     }
 
-    canvas.style.width = newWidth + "px";
-    canvas.style.height = newHeight + "px";
+    canvas.style.width = Math.floor(newWidth) + "px";
+    canvas.style.height = Math.floor(newHeight) + "px";
 }
 
+// Ejecutar al cargar y al redimensionar
 window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
+window.addEventListener("load", resizeCanvas); // Por si las moscas
+
 
 let groundY = 230;
 let gravity = 1.0;
