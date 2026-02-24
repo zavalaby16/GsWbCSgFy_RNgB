@@ -9,11 +9,14 @@
 <meta name="theme-color" content="#000000">
     
 <style>
-    body {
-        margin: 0;
-        background: black;
-        text-align: center; 
-    }
+   body {
+    margin: 0;
+    background: black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
     canvas {
     display: block;
     margin: 0 auto;
@@ -263,6 +266,12 @@ function drawSparks() {
     }
     ctx.globalAlpha = 1;
 }
+    function setRealHeight() {
+    document.body.style.height = window.innerHeight + "px";
+}
+
+window.addEventListener("resize", setRealHeight);
+setRealHeight();
 
 // -------------------- UPDATE (BUCLE PRINCIPAL) --------------------
 function update() {
@@ -520,6 +529,8 @@ canvas.addEventListener('touchstart', function(e) {
 }, { passive: false });
 
 showMessage("System ready");
+
+
 update();
 
 if ("serviceWorker" in navigator) {
