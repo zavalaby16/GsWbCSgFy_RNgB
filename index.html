@@ -19,8 +19,9 @@
 }
     canvas {
     display: block;
-    background: black;
-    image-rendering: pixelated;
+    margin: auto;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
 </style>
 </head>
@@ -312,6 +313,10 @@ function update() {
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (window.innerHeight > window.innerWidth) {
+    ctx.save();
+    ctx.scale(1.5, 1.5);  // Ajusta este valor si quieres más grande
+}
 
     if (!gameStarted) {
         // --- PANTALLA DE INICIO MINIMALISTA ---
@@ -502,6 +507,9 @@ function update() {
                 messageTimer--;}
         }
     }
+    if (window.innerHeight > window.innerWidth) {
+    ctx.restore();
+}
     requestAnimationFrame(update);
 }
 
@@ -555,7 +563,6 @@ showMessage("System ready");
 update();
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
     navigator.serviceWorker.register("./sw.js")
       .then(() => console.log("Service Worker registrado"))
       .catch(err => console.log("SW error:", err));
