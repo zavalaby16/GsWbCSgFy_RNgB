@@ -31,29 +31,37 @@ const ctx = canvas.getContext("2d");
 canvas.width = 900;
 canvas.height = 300;
 function resizeCanvas() {
-    const aspectRatio = canvas.width / canvas.height;
+    const canvas = document.querySelector('canvas'); // Busca el canvas directamente
+    if (!canvas) return; // Seguridad por si no lo encuentra
+
+    const nativeWidth = canvas.width;
+    const nativeHeight = canvas.height;
+    const aspectRatio = nativeWidth / nativeHeight;
 
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
     let newWidth, newHeight;
 
-    const maxWidth = windowWidth * 0.95;
-    const maxHeight = windowHeight * 0.95;
-
-    if (maxWidth / maxHeight < aspectRatio) {
-        newWidth = maxWidth;
+    // Lógica para ocupar el máximo espacio (90%)
+    if (windowWidth / windowHeight < aspectRatio) {
+        newWidth = windowWidth * 0.9;
         newHeight = newWidth / aspectRatio;
     } else {
-        newHeight = maxHeight;
+        newHeight = windowHeight * 0.9;
         newWidth = newHeight * aspectRatio;
     }
 
     canvas.style.width = newWidth + "px";
     canvas.style.height = newHeight + "px";
+    
+    console.log("Nuevo tamaño:", newWidth, "x", newHeight); // Esto te dirá en consola si se está achicando a cero
 }
+
+// Ejecutar
 window.addEventListener("resize", resizeCanvas);
-resizeCanvas(); // ← ESTA LÍNEA FALTA
+resizeCanvas(); 
+
 
 let groundY = 230;
 let gravity = 1.0;
