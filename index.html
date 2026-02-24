@@ -453,9 +453,8 @@ function update() {
 
         // Lógica de Laptops (Movimiento y colisión)
         if (laptop) {
-           ctx.fillStyle = "red";
-ctx.fillRect(laptop.x, laptop.y, 55, 55);
-
+          ctx.fillStyle = "white";
+ctx.fillText("Canvas height: " + canvas.height, 50, 100);
 ctx.fillStyle = "white";
 ctx.fillText("X:" + laptop.x, 200, 50);
 ctx.fillText("Y:" + laptop.y, 200, 70);
