@@ -262,7 +262,7 @@ function showMessage(text) {
     currentMessage = text;
     if (text === "Busy mode on" || text.includes("rest")) messageTimer = 80;
     else if (heartMessages.includes(text)) messageTimer = 250;
-    else messageTimer = 180;
+    else messageTimer = 120;
 }
 
 function drawSparks() {
