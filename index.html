@@ -19,13 +19,11 @@
 }
     canvas {
     display: block;
-    margin: 0 auto;
     background: black;
     image-rendering: pixelated;
 
     width: 100vw;
-    max-width: 900px;
-    height: auto;
+    height: 100vh;
 }
 </style>
 </head>
@@ -506,7 +504,7 @@ document.addEventListener("keydown", function(e) {
 });
 
 // --- CONTROLES TÁCTILES (Corregidos) ---
-canvas.addEventListener('touchstart', function(e) {
+document.addEventListener('touchstart', function(e) {
     if (e.cancelable) e.preventDefault(); 
     
     if (isPaused) {
