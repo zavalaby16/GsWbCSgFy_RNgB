@@ -42,20 +42,26 @@ function resizeCanvas() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    let newWidth = screenWidth;
-    let newHeight = newWidth / aspectRatio;
+    if (screenHeight > screenWidth) {
+        // 📱 MODO VERTICAL
+        const newWidth = screenWidth;
+        const newHeight = newWidth / aspectRatio;
 
-    if (newHeight > screenHeight) {
-        newHeight = screenHeight;
-        newWidth = newHeight * aspectRatio;
+        canvas.style.width = newWidth + "px";
+        canvas.style.height = newHeight + "px";
+    } else {
+        // 📱🖥 MODO HORIZONTAL
+        const newHeight = screenHeight;
+        const newWidth = newHeight * aspectRatio;
+
+        canvas.style.width = newWidth + "px";
+        canvas.style.height = newHeight + "px";
     }
-
-    canvas.style.width = newWidth + "px";
-    canvas.style.height = newHeight + "px";
 }
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
+
     
 let groundY = 230;
 let gravity = 1.0;
