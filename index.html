@@ -150,7 +150,7 @@ const earlyMessages = [
 // --- SISTEMA DE MEMORIA DE MENSAJES ---
 // Intentamos recuperar el mazo guardado, si no existe, creamos uno nuevo
 let storedPool = localStorage.getItem("monkeyMessagePool");
-let messagePool = storedPool ? JSON.parse(storedPool) : [...earlyMessages];
+llet messagePool = shuffle([...earlyMessages]);
 
 // Función para barajar (mezclar) el mazo de forma aleatoria
 function shuffle(array) {
