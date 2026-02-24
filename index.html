@@ -343,8 +343,8 @@ lastTime = timestamp;
         }
 
         // Gravedad y movimiento
-        monkey.y += monkey.velocityY;
-        monkey.velocityY += gravity;
+        monkey.y += monkey.velocityY * deltaTime;
+        monkey.velocityY += gravity * deltaTime;
         if (monkey.y >= groundY) { monkey.y = groundY; monkey.jumping = false; }
 
         gameTime++;
