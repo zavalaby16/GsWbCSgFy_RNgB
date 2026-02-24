@@ -1,4 +1,4 @@
-const CACHE_NAME = "monkey-runner-v2";
+const CACHE_NAME = "monkey-runner-v1";
 
 const urlsToCache = [
   "./",
