@@ -379,8 +379,8 @@ lastTime = timestamp;
             nextLaptopTime = gameTime + 700 + Math.random() * 500; // Mucho más espacio entre ellas
         }
 
-        gameSpeed += 0.002; if (gameSpeed > 9.5) gameSpeed = 9.5;
-
+        gameSpeed += 0.002 * deltaTime;
+        if (gameSpeed > 9.5) gameSpeed = 9.5;
         // Dibujos base
         drawGround(); drawFootprints(); drawMonkey(); drawObstacles(); drawSparks();
 
