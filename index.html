@@ -284,7 +284,9 @@ window.addEventListener("resize", setRealHeight);
 setRealHeight();
 
 // -------------------- UPDATE (BUCLE PRINCIPAL) --------------------
-function update() {
+let lastTime = 0;
+
+function update(timestamp) {
     // --- LÓGICA DE PAUSA ---
     if (isPaused) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
