@@ -388,7 +388,9 @@ lastTime = timestamp;
             nextLaptopTime = gameTime + 700 + Math.random() * 500; // Mucho más espacio entre ellas
         }
 
-        gameSpeed += 0.002 * deltaTime;
+       let baseSpeed = window.innerWidth < 600 ? 6 : 5.5;
+        gameSpeed = baseSpeed + (gameTime * 0.0008);
+
         if (gameSpeed > 9.5) gameSpeed = 9.5;
         // Dibujos base
         drawGround(); drawFootprints(); drawMonkey(); drawObstacles(); drawSparks();
