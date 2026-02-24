@@ -317,7 +317,7 @@ function update() {
     const offsetX = canvas.width * (scale - 1) / 2;
     const offsetY = canvas.height * (scale - 1) / 2;
 
-    // ctx.scale(scale, scale);
+    ctx.scale(scale, scale);
     ctx.translate(-offsetX, -offsetY);
 }
     
@@ -511,6 +511,20 @@ function update() {
         }
     }
     if (window.innerHeight > window.innerWidth) {
+    ctx.save();
+
+    const scale = 1.5;
+
+    const offsetX = canvas.width * (scale - 1) / 2;
+    const offsetY = canvas.height * (scale - 1) / 2;
+
+    ctx.scale(scale, scale);
+    ctx.translate(-offsetX, -offsetY);
+}
+
+// AQUÍ dibujas todo el juego
+
+if (window.innerHeight > window.innerWidth) {
     ctx.restore();
 }
     requestAnimationFrame(update);
