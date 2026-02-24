@@ -455,7 +455,10 @@ function update() {
 
         // Lógica de Laptops (Movimiento y colisión)
         if (laptop) {
-            if (laptopReady) ctx.drawImage(laptopImg, laptop.x, laptop.y - 70, 55, 55);
+            if (laptopReady) {
+    console.log("Dibujando laptop en:", laptop.x, laptop.y);
+    ctx.drawImage(laptopImg, laptop.x, laptop.y - 70, 55, 55);
+}
             laptop.x -= gameSpeed * 0.25;
             if (monkey.x + 40 > laptop.x && monkey.x < laptop.x + 40 && monkey.y + 40 > laptop.y - 30 && monkey.y < laptop.y + 10) {
                 laptopCount++; busyOffset += 25; showMessage("Busy mode on"); laptop = null;
