@@ -312,6 +312,10 @@ function update() {
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (window.innerHeight > window.innerWidth) {
+    ctx.save();
+    ctx.scale(1.5, 1.5);  // Ajusta este valor si quieres más grande
+}
 
     if (!gameStarted) {
         // --- PANTALLA DE INICIO MINIMALISTA ---
@@ -502,6 +506,9 @@ function update() {
                 messageTimer--;}
         }
     }
+    if (window.innerHeight > window.innerWidth) {
+    ctx.restore();
+}
     requestAnimationFrame(update);
 }
 
