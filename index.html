@@ -543,10 +543,15 @@ document.addEventListener('touchstart', function(e) {
 
     // 👇 DOBLE TOQUE PARA PAUSA
     if (timeDiff < 250) {
-        isPaused = !isPaused;
-        lastTouchTime = 0;
-        return;
+    isPaused = !isPaused;
+
+    if (isPaused) {
+        currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
     }
+
+    lastTouchTime = 0;
+    return;
+}
 
     lastTouchTime = currentTime;
 
