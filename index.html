@@ -462,7 +462,7 @@ ctx.fillText("Y:" + laptop.y, 200, 70);
 ctx.fillRect(200, 150, 55, 55);
 ctx.font = "20px Arial";
 ctx.fillText("LAPTOP ACTIVA", 50, 50);
-           if (laptopReady) ctx.drawImage(laptopImg, laptop.x, laptop.y - 70, 55, 55);
+           if (laptopReady) ctx.drawImage(laptopImg, laptop.x, laptop.y, 55, 55);
             laptop.x -= gameSpeed * 0.25;
             if (monkey.x + 40 > laptop.x && monkey.x < laptop.x + 40 && monkey.y + 40 > laptop.y - 30 && monkey.y < laptop.y + 10) {
                 laptopCount++; busyOffset += 25; showMessage("Busy mode on"); laptop = null;
