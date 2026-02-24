@@ -19,9 +19,8 @@
 }
     canvas {
     display: block;
-    margin: auto;
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    background: black;
+    image-rendering: pixelated;
 }
 </style>
 </head>
@@ -563,13 +562,10 @@ showMessage("System ready");
 update();
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker.register("./sw.js")
-      .then(() => console.log("Service Worker registrado"))
-      .catch(err => console.log("SW error:", err));
-  });
+  navigator.serviceWorker.register("./sw.js")
+    .then(() => console.log("Service Worker registrado"))
+    .catch(err => console.log("SW error:", err));
 }
-    
 
 </script>   
 </body>
