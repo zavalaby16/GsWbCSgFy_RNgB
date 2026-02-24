@@ -22,8 +22,7 @@
 </style>
 </head>
 <body>
-<canvas id="game"></canvas>
-
+<canvas id="gameCanvas" width="800" height="600"></canvas>
 <script>
 // <------------- CONFIGURACIÓN INICIAL ----------
 const canvas = document.getElementById("game");
@@ -32,17 +31,25 @@ const ctx = canvas.getContext("2d");
 canvas.width = 900;
 canvas.height = 300;
 function resizeCanvas() {
+    const canvas = document.getElementById('gameCanvas');
     const aspectRatio = canvas.width / canvas.height;
 
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
 
-    let newWidth = screenWidth;
-    let newHeight = newWidth / aspectRatio;
+    let newWidth, newHeight;
 
-    // Si se pasa del alto disponible, ajustamos por altura
-    if (newHeight > screenHeight) {
-        newHeight = screenHeight;
+    // Queremos ocupar el 95% de la pantalla para dejar un pequeño margen elegante
+    const maxWidth = windowWidth * 0.95;
+    const maxHeight = windowHeight * 0.95;
+
+    if (maxWidth / maxHeight < aspectRatio) {
+        // La pantalla es más "estrecha" que el juego (ej. Celular vertical)
+        newWidth = maxWidth;
+        newHeight = newWidth / aspectRatio;
+    } else {
+        // La pantalla es más "ancha" que el juego (ej. Monitor PC)
+        newHeight = maxHeight;
         newWidth = newHeight * aspectRatio;
     }
 
@@ -51,7 +58,8 @@ function resizeCanvas() {
 }
 
 window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
+window.addEventListener("load", resizeCanvas); // Asegura que corra al cargar
+
 let groundY = 230;
 let gravity = 1.0;
 let gameSpeed = 3.5;
