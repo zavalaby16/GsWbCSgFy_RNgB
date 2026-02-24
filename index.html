@@ -31,7 +31,6 @@ const ctx = canvas.getContext("2d");
 canvas.width = 900;
 canvas.height = 300;
 function resizeCanvas() {
-    const canvas = document.getElementById('gameCanvas');
     const aspectRatio = canvas.width / canvas.height;
 
     const windowWidth = window.innerWidth;
@@ -39,16 +38,13 @@ function resizeCanvas() {
 
     let newWidth, newHeight;
 
-    // Queremos ocupar el 95% de la pantalla para dejar un pequeño margen elegante
     const maxWidth = windowWidth * 0.95;
     const maxHeight = windowHeight * 0.95;
 
     if (maxWidth / maxHeight < aspectRatio) {
-        // La pantalla es más "estrecha" que el juego (ej. Celular vertical)
         newWidth = maxWidth;
         newHeight = newWidth / aspectRatio;
     } else {
-        // La pantalla es más "ancha" que el juego (ej. Monitor PC)
         newHeight = maxHeight;
         newWidth = newHeight * aspectRatio;
     }
@@ -56,8 +52,8 @@ function resizeCanvas() {
     canvas.style.width = newWidth + "px";
     canvas.style.height = newHeight + "px";
 }
-
 window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // ← ESTA LÍNEA FALTA
 
 let groundY = 230;
 let gravity = 1.0;
