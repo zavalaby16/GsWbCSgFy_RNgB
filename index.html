@@ -41,21 +41,13 @@ function resizeCanvas() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    if (screenHeight > screenWidth) {
-        // 📱 MODO VERTICAL
-        const newWidth = screenWidth;
-        const newHeight = newWidth / aspectRatio;
+    const scale = Math.min(
+        screenWidth / canvas.width,
+        screenHeight / canvas.height
+    );
 
-        canvas.style.width = newWidth + "px";
-        canvas.style.height = newHeight + "px";
-    } else {
-        // 📱🖥 MODO HORIZONTAL
-        const newHeight = screenHeight;
-        const newWidth = newHeight * aspectRatio;
-
-        canvas.style.width = newWidth + "px";
-        canvas.style.height = newHeight + "px";
-    }
+    canvas.style.width = canvas.width * scale + "px";
+    canvas.style.height = canvas.height * scale + "px";
 }
 
 window.addEventListener("resize", resizeCanvas);
