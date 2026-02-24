@@ -110,7 +110,7 @@ let restLineIndex = 0;
 let restTimer = 0;
 let lastSpacePress = 0; // Para guardar el tiempo del último clic
 let isPaused = false;   // Para saber si el juego está detenido
-
+let lastTouchtime = 0
 // <------------- POOL DE MENSAJES ----------
 const pauseMessages = [
     "you turn black uh ?",
@@ -528,25 +528,40 @@ document.addEventListener("keydown", function(e) {
 
 // --- CONTROLES TÁCTILES (Corregidos) ---
 document.addEventListener('touchstart', function(e) {
-    if (e.cancelable) e.preventDefault(); 
-    
+    if (e.cancelable) e.preventDefault();
+
+    let currentTime = Date.now();
+    let timeDiff = currentTime - lastTouchTime;
+
+    // 👇 DOBLE TOQUE PARA PAUSA
+    if (timeDiff < 250) {
+    isPaused = !isPaused;
+
     if (isPaused) {
-        isPaused = false; // Quitar pausa al tocar
-        return;
+        currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
     }
+
+    lastTouchTime = 0;
+    return;
+}
+
+    lastTouchTime = currentTime;
+
+    // 👇 Si estaba en pausa y es toque normal, no salta
+    if (isPaused) return;
 
     if (!gameStarted) {
         gameStarted = true;
     } else if (!monkey.jumping) {
-        // Añadimos el mensaje del primer salto también aquí
         if (!firstJump) { 
             showMessage("Are you turning black?... Interesting..."); 
             firstJump = true; 
         }
-        // IMPORTANTE: Asegúrate de que sea negativo para que salte
-        monkey.velocityY = -16; 
+
+        monkey.velocityY = -16;
         monkey.jumping = true;
     }
+
 }, { passive: false });
 
 showMessage("System ready");
