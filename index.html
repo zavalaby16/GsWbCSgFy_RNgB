@@ -36,31 +36,28 @@ canvas.width = 900;
 canvas.height = 300;
 
 function resizeCanvas() {
-    // 1. Calculamos la proporción original una sola vez al inicio de la función
     const aspectRatio = canvas.width / canvas.height;
-    
+
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    let newWidth, newHeight;
+    if (screenHeight > screenWidth) {
+        // 📱 MODO VERTICAL
+        const newWidth = screenWidth;
+        const newHeight = newWidth / aspectRatio;
 
-    // 2. Decidimos el tamaño según el espacio disponible
-    if (screenWidth / screenHeight < aspectRatio) {
-        // Pantalla más alta (Vertical) - Ajustamos al ancho
-        newWidth = screenWidth;
-        newHeight = screenWidth / aspectRatio;
+        canvas.style.width = newWidth + "px";
+        canvas.style.height = newHeight + "px";
     } else {
-        // Pantalla más ancha (Horizontal) - Ajustamos al alto
-        newHeight = screenHeight;
-        newWidth = screenHeight * aspectRatio;
-    }
+        // 📱🖥 MODO HORIZONTAL
+        const newHeight = screenHeight;
+        const newWidth = newHeight * aspectRatio;
 
-    // 3. Aplicamos el tamaño final al estilo visual del canvas
-    canvas.style.width = newWidth + "px";
-    canvas.style.height = newHeight + "px";
+        canvas.style.width = newWidth + "px";
+        canvas.style.height = newHeight + "px";
+    }
 }
 
-// 4. Escuchar el cambio de tamaño y ejecutar al cargar
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
