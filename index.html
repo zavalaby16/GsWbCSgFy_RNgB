@@ -283,9 +283,21 @@ function drawSparks() {
 function update() {
     // --- LÓGICA DE PAUSA ---
     if (isPaused) {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-        ctx.fillRect(0, 0, canvas.width, canvas.ctx.fillStyle = "black";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.font = "bold 28px monospace";
+    ctx.fillText("— PAUSED —", canvas.width / 2, canvas.height / 2 - 10);
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+    ctx.font = "italic 16px monospace";
+    ctx.fillText(currentPauseMsg, canvas.width / 2, canvas.height / 2 + 30);
+
+    requestAnimationFrame(update);
+    return;
+}
       if (window.innerHeight > window.innerWidth) {
         ctx.save();
         ctx.scale(1.7, 1.7);  // Ajusta este valor si quieres más grande
