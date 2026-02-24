@@ -1,75 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Monkey Runner</title>
     <style>
         body {
             margin: 0;
+            padding: 0;
             background: black;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Evita scrolls raros */
+            overflow: hidden;
         }
         canvas {
             display: block;
-            background: #222; /* Un gris oscuro para ver el área si no hay dibujo */
+            background: #222; /* Esto te ayudará a ver si el canvas existe */
             image-rendering: pixelated;
+            border: 2px solid #444; /* Para ver los bordes mientras pruebas */
         }
     </style>
 </head>
 <body>
 
-    <canvas id="game" width="900" height="300"></canvas>
+    <canvas id="game"></canvas>
 
     <script>
-        // 1. Conexión con el HTML
         const canvas = document.getElementById("game");
         const ctx = canvas.getContext("2d");
 
-        // 2. Función de ajuste de tamaño
+        // 1. Definimos la resolución interna FIJA
+        canvas.width = 900;
+        canvas.height = 300;
+
         function resizeCanvas() {
-            const aspectRatio = canvas.width / canvas.height; // 900/300 = 3
+            const aspectRatio = canvas.width / canvas.height;
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
 
             let newWidth, newHeight;
 
+            // Ajuste inteligente al 95% de la pantalla
             if (windowWidth / windowHeight < aspectRatio) {
                 newWidth = windowWidth * 0.95;
                 newHeight = newWidth / aspectRatio;
             } else {
-                newHeight = windowHeight * 0.8;
+                newHeight = windowHeight * 0.95;
                 newWidth = newHeight * aspectRatio;
             }
 
             canvas.style.width = newWidth + "px";
             canvas.style.height = newHeight + "px";
+            
+            console.log("Reajustado a:", newWidth, "x", newHeight);
         }
 
-        // 3. Activar el ajuste
         window.addEventListener("resize", resizeCanvas);
+        // Ejecutamos inmediatamente
         resizeCanvas();
 
-        // --- AQUÍ EMPIEZA TU LÓGICA DEL JUEGO ---
-        let groundY = canvas.height - 50; 
-        
-        // Ejemplo rápido para que veas que funciona:
+        // --- LÓGICA DE DIBUJO PARA PROBAR ---
+        let groundY = canvas.height - 50;
+
         function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Limpiar fondo
+            ctx.fillStyle = "#333";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Dibujar Suelo
             ctx.fillStyle = "brown";
-            ctx.fillRect(0, groundY, canvas.width, 50); // El suelo
-            
+            ctx.fillRect(0, groundY, canvas.width, 50);
+
+            // Dibujar "Mono" (un cuadrado amarillo por ahora)
             ctx.fillStyle = "yellow";
-            ctx.fillText("¡EL MONO ESTÁ AQUÍ!", 50, 100);
-            
+            ctx.fillRect(100, groundY - 50, 50, 50);
+
+            ctx.fillStyle = "white";
+            ctx.font = "30px Arial";
+            ctx.fillText("¡SI VES ESTO, FUNCIONA!", 250, 100);
+
             requestAnimationFrame(draw);
         }
-        draw();
 
+        draw();
     </script>
 </body>
 </html>
