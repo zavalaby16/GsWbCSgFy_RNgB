@@ -474,7 +474,7 @@ lastTime = timestamp;
                 ctx.fillText(currentMessage, xPos, yPos);
                 ctx.textBaseline = "alphabetic";
 
-                messageTimer -= 0.3; 
+                messageTimer -= 0.3 * deltaTime;
             } else {
                 const xCentro = canvas.width / 2;
                 ctx.textAlign = "center";
