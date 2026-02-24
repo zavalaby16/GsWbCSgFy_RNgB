@@ -317,7 +317,7 @@ function update() {
     const offsetX = canvas.width * (scale - 1) / 2;
     const offsetY = canvas.height * (scale - 1) / 2;
 
-    ctx.scale(scale, scale);
+    // ctx.scale(scale, scale);
     ctx.translate(-offsetX, -offsetY);
 }
     
@@ -452,16 +452,8 @@ function update() {
         }
 
         // Lógica de Laptops (Movimiento y colisión)
-        if (laptop) {
-          ctx.fillStyle = "white";
-ctx.fillText("Canvas height: " + canvas.height, 50, 100);
-ctx.fillStyle = "white";
-ctx.fillText("X:" + laptop.x, 200, 50);
-ctx.fillText("Y:" + laptop.y, 200, 70);
-ctx.fillRect(200, 150, 55, 55);
-ctx.font = "20px Arial";
-ctx.fillText("LAPTOP ACTIVA", 50, 50);
-           if (laptopReady) ctx.drawImage(laptopImg, laptop.x, laptop.y, 55, 55);
+        iif (laptop) {
+            if (laptopReady) ctx.drawImage(laptopImg, laptop.x, laptop.y - 70, 55, 55);
             laptop.x -= gameSpeed * 0.25;
             if (monkey.x + 40 > laptop.x && monkey.x < laptop.x + 40 && monkey.y + 40 > laptop.y - 30 && monkey.y < laptop.y + 10) {
                 laptopCount++; busyOffset += 25; showMessage("Busy mode on"); laptop = null;
