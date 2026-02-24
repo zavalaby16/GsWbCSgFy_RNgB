@@ -314,6 +314,15 @@ function update() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
+    if (window.innerHeight > window.innerWidth) {
+    ctx.save();
+
+    const scale = 1.5; // puedes ajustar
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.scale(scale, scale);
+    ctx.translate(-canvas.width / 2, -canvas.height / 2);
+}
+    
     if (!gameStarted) {
         // --- PANTALLA DE INICIO MINIMALISTA ---
         // Aquí NO llamamos a drawMonkey ni a drawGround
@@ -503,6 +512,9 @@ function update() {
                 messageTimer--;}
         }
     }
+    if (window.innerHeight > window.innerWidth) {
+    ctx.restore();
+}
     requestAnimationFrame(update);
 }
 
