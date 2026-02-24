@@ -16,13 +16,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+
+    height: 100vh;
+    overflow: hidden;
 }
-    canvas {
+
+canvas {
     display: block;
     background: black;
     image-rendering: pixelated;
-    margin: 0 auto;
 }
 </style>
 </head>
@@ -46,9 +48,8 @@ function resizeCanvas() {
     let newWidth = screenWidth;
     let newHeight = newWidth / aspectRatio;
 
-    // Si se pasa del alto disponible, ajustamos por altura
-    if (newHeight > screenHeight * 0.9) {
-        newHeight = screenHeight * 0.9;
+    if (newHeight > screenHeight) {
+        newHeight = screenHeight;
         newWidth = newHeight * aspectRatio;
     }
 
