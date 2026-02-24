@@ -30,45 +30,12 @@
 <canvas id="game"></canvas>
 
 <script>
-
 // <------------- CONFIGURACIÓN INICIAL ----------
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 canvas.width = 900;
 canvas.height = 300;
-function resizeCanvas() {
-    const canvas = document.querySelector('canvas'); // Busca el canvas directamente
-    if (!canvas) return; // Seguridad por si no lo encuentra
-
-    const nativeWidth = canvas.width;
-    const nativeHeight = canvas.height;
-    const aspectRatio = nativeWidth / nativeHeight;
-
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    let newWidth, newHeight;
-
-    // Lógica para ocupar el máximo espacio (90%)
-    if (windowWidth / windowHeight < aspectRatio) {
-        newWidth = windowWidth * 0.9;
-        newHeight = newWidth / aspectRatio;
-    } else {
-        newHeight = windowHeight * 0.9;
-        newWidth = newHeight * aspectRatio;
-    }
-
-    canvas.style.width = newWidth + "px";
-    canvas.style.height = newHeight + "px";
-    
-    console.log("Nuevo tamaño:", newWidth, "x", newHeight); // Esto te dirá en consola si se está achicando a cero
-}
-
-// Ejecutar
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas(); 
-
 
 let groundY = 230;
 let gravity = 1.0;
@@ -301,21 +268,19 @@ function drawSparks() {
 function update() {
     // --- LÓGICA DE PAUSA ---
     if (isPaused) {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.textAlign = "center";
+        ctx.fillStyle = "white";
+        ctx.font = "bold 28px monospace";
+        ctx.fillText("— PAUSED —", canvas.width / 2, canvas.height / 2 - 10);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+        ctx.font = "italic 16px monospace";
+        ctx.fillText(currentPauseMsg, canvas.width / 2, canvas.height / 2 + 30);
+        requestAnimationFrame(update);
+        return;
+    }
 
-    ctx.textAlign = "center";
-    ctx.fillStyle = "white";
-    ctx.font = "bold 28px monospace";
-    ctx.fillText("— PAUSED —", canvas.width / 2, canvas.height / 2 - 10);
-
-    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-    ctx.font = "italic 16px monospace";
-    ctx.fillText(currentPauseMsg, canvas.width / 2, canvas.height / 2 + 30);
-
-    requestAnimationFrame(update);
-    return;
-}
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (!gameStarted) {
@@ -532,7 +497,7 @@ document.addEventListener("keydown", function(e) {
 });
 
 // --- CONTROLES TÁCTILES (Corregidos) ---
-document.addEventListener('touchstart', function(e) {
+canvas.addEventListener('touchstart', function(e) {
     if (e.cancelable) e.preventDefault(); 
     
     if (isPaused) {
@@ -555,13 +520,6 @@ document.addEventListener('touchstart', function(e) {
 }, { passive: false });
 
 showMessage("System ready");
-function setRealHeight() {
-    document.body.style.height = window.innerHeight + "px";
-}
-
-window.addEventListener("resize", setRealHeight);
-setRealHeight();
-
 update();
 
 if ("serviceWorker" in navigator) {
