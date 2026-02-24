@@ -1,34 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monkey Runner</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monkey Runner</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
     
-<style>
-   body {
-    margin: 0;
-    background: black;
+    <style>
+        /* 1. Obligamos a que la pantalla ocupe el 100% real */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%; 
+            background: black;
+            overflow: hidden; /* Evita que la pantalla rebote en el cel */
+            
+            /* 2. Centrado perfecto con Flexbox */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-    canvas {
-    display: block;
-    margin: auto;
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
-}
-</style>
+        canvas {
+            display: block;
+            /* Eliminamos el position absolute para que el Flexbox haga su magia */
+            background: #111; /* Un gris muy oscuro para debuguear */
+            image-rendering: pixelated; /* Para que el mono se vea nítido */
+        }
+    </style>
 </head>
 <body>
-<canvas id="game"></canvas>
+    <canvas id="game"></canvas>
+    <script src="script.js"></script> 
+</body>
+</html>
 
-<script>
 // <------------- CONFIGURACIÓN INICIAL ----------
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
