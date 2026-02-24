@@ -262,7 +262,12 @@ function showMessage(text) {
     currentMessage = text;
     if (text === "Busy mode on" || text.includes("rest")) messageTimer = 80;
     else if (heartMessages.includes(text)) messageTimer = 250;
-    else messageTimer = 120;
+    else {
+    if (window.innerWidth < 600) {
+        messageTimer = 50; // móvil
+    } else {
+        messageTimer = 120; // compu
+    }
 }
 
 function drawSparks() {
