@@ -358,7 +358,13 @@ lastTime = timestamp;
         // Gravedad y movimiento
         monkey.y += monkey.velocityY * deltaTime;
         monkey.velocityY += gravity * deltaTime;
-        if (monkey.y >= groundY - 58) {
+        
+      if (monkey.y <= 0) {
+       monkey.y = 0;
+       monkey.velocityY = 0;
+}
+      
+      if (monkey.y >= groundY - 58) {
         monkey.y = groundY - 58;
         monkey.jumping = false;
         }
