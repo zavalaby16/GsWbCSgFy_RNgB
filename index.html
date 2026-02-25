@@ -364,10 +364,10 @@ lastTime = timestamp;
         monkey.y = groundY - 58;
         monkey.jumping = false;
         }
-
-        if (!monkey.jumping) {
+        
     footprintTimer += deltaTime;
-if (!monkey.jumping && footprintTimer > 80) {
+    
+    if (!monkey.jumping && footprintTimer > 80) {
     footprints.push({
         x: monkey.x + 5,
         y: groundY - 4,
