@@ -356,7 +356,7 @@ lastTime = timestamp;
         monkey.velocityY += gravity * deltaTime;
         if (monkey.y >= groundY) { monkey.y = groundY; monkey.jumping = false; }
 
-        gameTime++;
+        gameTime += deltaTime;
         
         // Spawn de nubes respirado
         if (obstacles.length === 0 || (canvas.width - obstacles[obstacles.length-1].x > 260)) spawnObstacle();
