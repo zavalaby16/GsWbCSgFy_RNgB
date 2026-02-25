@@ -227,6 +227,12 @@ function drawMonkey() {
     ctx.fillStyle = "black"; ctx.beginPath(); ctx.arc(23, 25, 5, 0, Math.PI * 2); ctx.arc(37, 25, 5, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = "white"; ctx.beginPath(); ctx.arc(24, 23.5, 1.8, 0, Math.PI * 2); ctx.arc(38, 23.5, 1.8, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
+    // BOCA
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(30, 32, 6, 0, Math.PI); // sonrisa
+    ctx.stroke();
 }
 
 // -------------------- FOOTPRINTS --------------------
