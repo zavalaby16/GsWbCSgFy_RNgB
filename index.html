@@ -232,7 +232,7 @@ function drawFootprints() {
     for (let i = footprints.length - 1; i >= 0; i--) {
         let fp = footprints[i];
         fp.x -= gameSpeed;
-        ctx.fillStyle = `rgba(255,255,255,${fp.life})`;
+        ctx.fillStyle = "red";
         ctx.beginPath(); ctx.ellipse(fp.x, fp.y, 3, 2, 0, 0, Math.PI * 2); ctx.fill();
         fp.life -= 0.01;
         if (fp.life <= 0) footprints.splice(i, 1);
