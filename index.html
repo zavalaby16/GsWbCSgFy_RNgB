@@ -35,10 +35,10 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 canvas.width = 900;
-canvas.height = 506;
+canvas.height = 300;
 
 function resizeCanvas() {
-    const aspectRatio = 16 / 9;
+    const aspectRatio = canvas.width / canvas.height;
 
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
