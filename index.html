@@ -235,7 +235,7 @@ function drawFootprints() {
         let fp = footprints[i];
 
         // Movimiento hacia la izquierda
-        fp.x -= gameSpeed * 0.6;
+        fp.x -= gameSpeed * 0.75;
 
         // Color con desvanecimiento
         ctx.fillStyle = `rgba(255,255,255,${fp.life})`;
@@ -256,7 +256,7 @@ function drawFootprints() {
         ctx.fill();
 
         // Desvanecimiento
-        fp.life -= 0.01;
+        fp.life -= 0.005;
 
         // Eliminar cuando desaparece
         if (fp.life <= 0) {
