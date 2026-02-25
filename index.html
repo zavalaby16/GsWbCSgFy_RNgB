@@ -106,14 +106,6 @@ let restTimer = 0;
 let lastSpacePress = 0; // Para guardar el tiempo del último clic
 let isPaused = false;   // Para saber si el juego está detenido
 let lastTouchTime = 0;
-let isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-let touchHeld = false;
-let currentMultiplier = 1;
-
-let maxBoost = 1.6;        // máximo aumento en móvil
-let boostAcceleration = 0.04; 
-let boostDecay = 0.03;
-    
 // <------------- POOL DE MENSAJES ----------
 const pauseMessages = [
     "you turn black uh ?",
@@ -341,6 +333,7 @@ setRealHeight();
 
 // -------------------- UPDATE (BUCLE PRINCIPAL) --------------------
 let lastTime = 0;
+
 function update(timestamp) {
    if (!lastTime) lastTime = timestamp;
    let deltaTime = (timestamp - lastTime) / 16.67;
@@ -360,26 +353,6 @@ lastTime = timestamp;
         requestAnimationFrame(update);
         return;
     }
-
-    // --- CALCULAR VELOCIDAD DINÁMICA ---
-gameTime += deltaTime;
-
-let dynamicSpeed = baseSpeed + gameTime * 0.002;
-let finalSpeed = dynamicSpeed;
-
-if (isMobile) {
-
-    if (touchHeld) {
-        currentMultiplier += boostAcceleration;
-    } else {
-        currentMultiplier -= boostDecay;
-    }
-
-    currentMultiplier = Math.max(1, Math.min(currentMultiplier, maxBoost));
-    finalSpeed = dynamicSpeed * currentMultiplier;
-}
-
-gameSpeed = finalSpeed;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -615,7 +588,6 @@ document.addEventListener("keydown", function(e) {
 
 // --- CONTROLES TÁCTILES (Corregidos) ---
 document.addEventListener('touchstart', function(e) {
-
     if (e.cancelable) e.preventDefault();
 
     let currentTime = Date.now();
@@ -623,31 +595,24 @@ document.addEventListener('touchstart', function(e) {
 
     // 👇 DOBLE TOQUE PARA PAUSA
     if (timeDiff < 250) {
-        isPaused = !isPaused;
+    isPaused = !isPaused;
 
-        if (isPaused) {
-            currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
-        }
-
-        lastTouchTime = 0;
-        touchHeld = false; // 🔥 evitar boost al pausar
-        return;
+    if (isPaused) {
+        currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
     }
+
+    lastTouchTime = 0;
+    return;
+}
 
     lastTouchTime = currentTime;
 
-    // 🔥 Activar boost solo si no está en pausa
-    if (!isPaused) {
-        touchHeld = true;
-    }
-
-    // 👇 Si está en pausa, no saltar
+    // 👇 Si estaba en pausa y es toque normal, no salta
     if (isPaused) return;
 
     if (!gameStarted) {
         gameStarted = true;
     } else if (!monkey.jumping) {
-
         if (!firstJump) { 
             showMessage("Are you turning black?... Interesting..."); 
             firstJump = true; 
@@ -659,9 +624,6 @@ document.addEventListener('touchstart', function(e) {
 
 }, { passive: false });
 
-    document.addEventListener("touchend", function() {
-    touchHeld = false;
-});
 showMessage("System ready");
 
 
