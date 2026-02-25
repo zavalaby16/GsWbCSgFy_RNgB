@@ -13,7 +13,7 @@ self.addEventListener("fetch", event => {
   );
 });
 
-const CACHE_NAME = "monkey-runner-v5";
+const CACHE_NAME = "GsWbCSgFy_RNgB";
 
 const urlsToCache = [
   "./",
