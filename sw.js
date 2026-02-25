@@ -11,11 +11,13 @@ self.addEventListener("activate", event => {
   );
 });
 
-const CACHE_NAME = "monkey-runner-v2";
+const CACHE_NAME = "monkey-runner-v3";
 
 const urlsToCache = [
   "./",
   "./index.html",
+  "./style.css",
+  "./script.js",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png"
