@@ -1,3 +1,15 @@
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          return caches.delete(cache);
+        })
+      );
+    })
+  );
+});
+
 const CACHE_NAME = "monkey-runner-v2";
 
 const urlsToCache = [
