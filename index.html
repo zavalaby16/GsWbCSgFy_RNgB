@@ -358,10 +358,6 @@ lastTime = timestamp;
         // Gravedad y movimiento
         monkey.y += monkey.velocityY * deltaTime;
         monkey.velocityY += gravity * deltaTime;
-        
-      if (monkey.y <= 0) {
-       monkey.y = 0;
-}
       
       if (monkey.y >= groundY - 58) {
         monkey.y = groundY - 58;
@@ -538,7 +534,7 @@ document.addEventListener("keydown", function(e) {
         if (!gameStarted) gameStarted = true;
         if (!monkey.jumping) {
             if (!firstJump) { showMessage("Are you turning black?... Interesting..."); firstJump = true; }
-            monkey.velocityY = -16; monkey.jumping = true; // El -16 es hacia ARRIBA
+            monkey.velocityY = -10; monkey.jumping = true; // El -16 es hacia ARRIBA
         }
     }
 });
@@ -575,7 +571,7 @@ document.addEventListener('touchstart', function(e) {
             firstJump = true; 
         }
 
-        monkey.velocityY = -16;
+        monkey.velocityY = -10;
         monkey.jumping = true;
     }
 
