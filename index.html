@@ -289,7 +289,7 @@ function drawObstacles() {
 }
 
 function spawnObstacle() {
-    const levels = [canvas.height * 0.6, canvas.height * 0.5];
+    const levels = [canvas.height * 0.5, canvas.height * 0.5];
     obstacles.push({ x: canvas.width + Math.random() * 200, y: levels[Math.floor(Math.random() * levels.length)] });
 }
 window.addEventListener("resize", setRealHeight);
