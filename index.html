@@ -23,6 +23,7 @@
     display: block;
     background: black;
     image-rendering: pixelated;
+    margin: auto;
 }
 </style>
 </head>
@@ -38,26 +39,25 @@ canvas.width = 900;
 canvas.height = 300;
 
 function resizeCanvas() {
-    const aspectRatio = canvas.width / canvas.height;
+    const baseWidth = 900;
+    const baseHeight = 300;
+    const aspectRatio = baseWidth / baseHeight; // 3
 
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    let newWidth = window.innerWidth;
+    let newHeight = newWidth / aspectRatio;
 
-    const scale = Math.min(
-        screenWidth / canvas.width,
-        screenHeight / canvas.height
-    );
+    if (newHeight > window.innerHeight) {
+        newHeight = window.innerHeight;
+        newWidth = newHeight * aspectRatio;
+    }
 
-    canvas.style.width = canvas.width * scale + "px";
-    canvas.style.height = canvas.height * scale + "px";
-
-    canvas.style.display = "block";
-    canvas.style.margin = "auto";
+    canvas.style.width = newWidth + "px";
+    canvas.style.height = newHeight + "px";
 }
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
-
+    
 let groundY = 230;
 let gravity = 0.75;
 let gameSpeed = window.innerWidth < 600 ? 6.5 : 5.5;
