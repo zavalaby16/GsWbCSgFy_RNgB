@@ -624,20 +624,24 @@ document.addEventListener('touchstart', function(e) {
 
 }, { passive: false });
 
+// --- INICIO DEL CIERRE ---
+
 showMessage("System ready");
 
+// Iniciamos el juego
+update();
 
- update();
-
-// if ("serviceWorker" in navigator) {
+// Comentamos el Service Worker correctamente para que no de error
+/*
+if ("serviceWorker" in navigator) {
   window.addEventListener("load", function() {
     navigator.serviceWorker.register("./sw.js")
       .then(() => console.log("Service Worker registrado"))
       .catch(err => console.log("SW error:", err));
   });
 }
- //   
+*/
 
-</script>   
+</script>    
 </body>
 </html>
