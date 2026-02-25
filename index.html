@@ -466,10 +466,8 @@ lastTime = timestamp;
                     nextLaptopTime = gameTime + 1000; // Respiro extra tras descansar
                 }
             } else if (laptop && laptop.x < -100) laptop = null;
-
-            drawObstacles();
         }
-
+         drawObstacles();
         // -------- FINAL DEL MENSAJE EN PANTALLA --------
         if (messageTimer > 0) {
             if (currentMessage === "Busy mode on") {
