@@ -398,8 +398,7 @@ lastTime = timestamp;
 
         if (gameSpeed > 9.5) gameSpeed = 9.5;
         // Dibujos base
-        drawGround(); drawFootprints(); drawMonkey(); drawObstacles(); drawSparks();
-
+        drawGround(); drawFootprints(); drawMonkey(); drawSparks();
         // Lógica de Corazones
         for (let i = hearts.length - 1; i >= 0; i--) {
             let h = hearts[i];
@@ -467,6 +466,8 @@ lastTime = timestamp;
                     nextLaptopTime = gameTime + 1000; // Respiro extra tras descansar
                 }
             } else if (laptop && laptop.x < -100) laptop = null;
+
+            drawObstacles();
         }
 
         // -------- FINAL DEL MENSAJE EN PANTALLA --------
