@@ -341,7 +341,6 @@ setRealHeight();
 
 // -------------------- UPDATE (BUCLE PRINCIPAL) --------------------
 let lastTime = 0;
-
 function update(timestamp) {
    if (!lastTime) lastTime = timestamp;
    let deltaTime = (timestamp - lastTime) / 16.67;
@@ -361,6 +360,26 @@ lastTime = timestamp;
         requestAnimationFrame(update);
         return;
     }
+
+    // --- CALCULAR VELOCIDAD DINÁMICA ---
+gameTime += deltaTime;
+
+let dynamicSpeed = baseSpeed + gameTime * 0.002;
+let finalSpeed = dynamicSpeed;
+
+if (isMobile) {
+
+    if (touchHeld) {
+        currentMultiplier += boostAcceleration;
+    } else {
+        currentMultiplier -= boostDecay;
+    }
+
+    currentMultiplier = Math.max(1, Math.min(currentMultiplier, maxBoost));
+    finalSpeed = dynamicSpeed * currentMultiplier;
+}
+
+gameSpeed = finalSpeed;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
