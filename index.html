@@ -194,11 +194,10 @@ if (!storedHeartPool) {
 function drawGround() {
     ctx.strokeStyle = "white";
     ctx.beginPath();
-    ctx.moveTo(0, groundY + 40);
-    ctx.lineTo(canvas.width, groundY + 40);
+    ctx.moveTo(0, groundY);
+    ctx.lineTo(canvas.width, groundY);
     ctx.stroke();
 }
-
 // -------------------- MONKEY --------------------
 function drawMonkey() {
     const scale = 0.75;
