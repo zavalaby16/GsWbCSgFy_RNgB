@@ -89,6 +89,7 @@ laptopImg.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1
     
 // <------------- SISTEMA DE MENSAJES Y TIEMPOS ----------
 let footprints = [];
+let footprintTimer = 0;
 let nextMessageRealTime = Date.now() + 4000;
 let nextLaptopTime = 600 + Math.random() * 500; // Aumentado para menos saturación
 let currentMessage = "";
@@ -365,11 +366,14 @@ lastTime = timestamp;
         }
 
         if (!monkey.jumping) {
+    footprintTimer += deltaTime;
+if (!monkey.jumping && footprintTimer > 80) {
     footprints.push({
-        x: monkey.x + 10,
-        y: groundY - 2,
+        x: monkey.x + 5,
+        y: groundY - 4,
         life: 1
     });
+    footprintTimer = 0;
 }
         gameTime += deltaTime;
         
