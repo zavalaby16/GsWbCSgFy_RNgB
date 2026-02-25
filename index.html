@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#000000">
     
 <style>
-   body {
+  body {
     margin: 0;
     background: black;
     display: flex;
@@ -37,23 +37,21 @@ canvas.height = 300;
 function resizeCanvas() {
     const baseWidth = 900;
     const baseHeight = 300;
-    const aspectRatio = baseWidth / baseHeight;
+    const aspectRatio = baseWidth / baseHeight; // 3
 
-    let displayWidth = window.innerWidth;
-    let displayHeight = displayWidth / aspectRatio;
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
 
-    if (displayHeight > window.innerHeight) {
-        displayHeight = window.innerHeight;
-        displayWidth = displayHeight * aspectRatio;
+    let newWidth = screenWidth;
+    let newHeight = screenWidth / aspectRatio;
+
+    if (newHeight > screenHeight) {
+        newHeight = screenHeight;
+        newWidth = screenHeight * aspectRatio;
     }
 
-    const scale = displayWidth / baseWidth;
-
-    canvas.style.width = displayWidth + "px";
-    canvas.style.height = displayHeight + "px";
-
-    // 🔥 Activamos render suave
-    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    canvas.style.width = newWidth + "px";
+    canvas.style.height = newHeight + "px";
 }
 
 window.addEventListener("resize", resizeCanvas);
@@ -145,14 +143,14 @@ const earlyMessages = [
     "Don't turn black",
     "Run a little more",
     "send me a hug",
-    "catch me ",
+    "catch me!!! ",
     "System notes your presence",
     "Stable connection detected",
     "Are you enjoying this?",
     "You’re not bad at this",
     "We are connected",
     "Would you merry me??! ",
-    " comeeeeee ",
+    " Hug??",
     "Black world paradise turururu",
     " uh uh uh dancing in september",
     "You started. That’s already cute.",
