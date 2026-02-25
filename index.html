@@ -226,13 +226,15 @@ function drawMonkey() {
     // OJOS
     ctx.fillStyle = "black"; ctx.beginPath(); ctx.arc(23, 25, 5, 0, Math.PI * 2); ctx.arc(37, 25, 5, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = "white"; ctx.beginPath(); ctx.arc(24, 23.5, 1.8, 0, Math.PI * 2); ctx.arc(38, 23.5, 1.8, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
+   
    // BOCA
 ctx.strokeStyle = "black";
 ctx.lineWidth = 3;
 ctx.beginPath();
 ctx.arc(30, 38, 7, 0.1, Math.PI - 0.1);
 ctx.stroke();
+     
+ctx.restore();
 }
 
 // -------------------- FOOTPRINTS --------------------
@@ -401,7 +403,7 @@ lastTime = timestamp;
 if (!monkey.jumping && footprintDistance > 35) {
     footprints.push({
         x: monkey.x + 5,
-        y: groundY - 2,
+        y: groundY - 3,
         life: 1
     });
     footprintDistance = 0;
