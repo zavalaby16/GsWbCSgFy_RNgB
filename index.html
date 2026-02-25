@@ -50,6 +50,9 @@ function resizeCanvas() {
 
     canvas.style.width = canvas.width * scale + "px";
     canvas.style.height = canvas.height * scale + "px";
+
+    canvas.style.display = "block";
+    canvas.style.margin = "auto";
 }
 
 window.addEventListener("resize", resizeCanvas);
