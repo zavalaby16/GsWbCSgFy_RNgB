@@ -59,7 +59,7 @@ window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 let groundY = 230;
-let gravity = 0.7;
+let gravity = 0.9;
 let gameSpeed = window.innerWidth < 600 ? 6.5 : 5.5;
 let monkey = {
     x: 80,
@@ -534,7 +534,7 @@ document.addEventListener("keydown", function(e) {
         if (!gameStarted) gameStarted = true;
         if (!monkey.jumping) {
             if (!firstJump) { showMessage("Are you turning black?... Interesting..."); firstJump = true; }
-            monkey.velocityY = -13; monkey.jumping = true; // El -16 es hacia ARRIBA
+            monkey.velocityY = -16; monkey.jumping = true; // El -16 es hacia ARRIBA
         }
     }
 });
@@ -571,7 +571,7 @@ document.addEventListener('touchstart', function(e) {
             firstJump = true; 
         }
 
-        monkey.velocityY = -13;
+        monkey.velocityY = -16;
         monkey.jumping = true;
     }
 
