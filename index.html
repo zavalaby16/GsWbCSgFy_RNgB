@@ -141,12 +141,15 @@ const earlyMessages = [
     "You're still here.... i love it",
     "Don't turn black",
     "Run a little more",
+    "send me a hug",
+    "catch me ",
     "System notes your presence",
     "Stable connection detected",
     "Are you enjoying this?",
     "You’re not bad at this",
     "We are connected",
     "Would you merry me??! ",
+    " comeeeeee ",
     "Black world paradise turururu",
     " uh uh uh dancing in september",
     "You started. That’s already cute.",
@@ -236,23 +239,6 @@ function drawFootprints() {
         if (fp.life <= 0) footprints.splice(i, 1);
     }
 }
-
-// -------------------- OBSTACLES (NUBES) --------------------
-function drawObstacles() {
-    ctx.fillStyle = "white";
-    for (let i = obstacles.length - 1; i >= 0; i--) {
-        let obs = obstacles[i];
-        ctx.beginPath(); ctx.arc(obs.x, obs.y, 10, 0, Math.PI * 2); ctx.arc(obs.x + 12, obs.y, 12, 0, Math.PI * 2); ctx.arc(obs.x + 20, obs.y, 10, 0, Math.PI * 2); ctx.fill();
-        obs.x -= gameSpeed;
-        if (obs.x < -50) obstacles.splice(i, 1);
-    }
-}
-
-function spawnObstacle() {
-    const levels = [groundY + 10, groundY - 13];
-    obstacles.push({ x: canvas.width + Math.random() * 200, y: levels[Math.floor(Math.random() * levels.length)] });
-}
-
 // -------------------- CORAZONES Y LAPTOPS --------------------
 function spawnHeart() {
     if (hearts.length > 2) return;
@@ -292,7 +278,21 @@ function drawSparks() {
     function setRealHeight() {
     document.body.style.height = window.innerHeight + "px";
 }
+// -------------------- OBSTACLES (NUBES) --------------------
+function drawObstacles() {
+    ctx.fillStyle = "white";
+    for (let i = obstacles.length - 1; i >= 0; i--) {
+        let obs = obstacles[i];
+        ctx.beginPath(); ctx.arc(obs.x, obs.y, 10, 0, Math.PI * 2); ctx.arc(obs.x + 12, obs.y, 12, 0, Math.PI * 2); ctx.arc(obs.x + 20, obs.y, 10, 0, Math.PI * 2); ctx.fill();
+        obs.x -= gameSpeed;
+        if (obs.x < -50) obstacles.splice(i, 1);
+    }
+}
 
+function spawnObstacle() {
+    const levels = [groundY + 10, groundY - 13];
+    obstacles.push({ x: canvas.width + Math.random() * 200, y: levels[Math.floor(Math.random() * levels.length)] });
+}
 window.addEventListener("resize", setRealHeight);
 setRealHeight();
 
