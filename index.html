@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Monkey Runner</title>
-<meta name="theme-color" content="#000000">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monkey Runner</title>
     
-<style>
+    <link rel="manifest" href="./manifest.json">
+    
+    <meta name="theme-color" content="#000000">
+    
+    <style>
+
   body {
     margin: 0; background: black;
     display: flex;
@@ -679,11 +683,21 @@ document.addEventListener('touchstart', function(e) {
     }
 }, { passive: false });
 
-// --- INICIO DEL JUEGO (Limpio de errores) ---
-resizeCanvas();
-update();
-console.log("Game started successfully");
+// // 1. Iniciamos el juego
+        resizeCanvas();
+        update();
+        console.log("Game started successfully");
 
-</script>    
+        // 2. Registramos el modo Offline (Service Worker)
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker.register("./sw.js")
+                .then(() => console.log("Service Worker registrado con éxito"))
+                .catch(err => console.log("Error al registrar el SW:", err));
+            });
+        }
+
+    </script>    
 </body>
 </html>
+
