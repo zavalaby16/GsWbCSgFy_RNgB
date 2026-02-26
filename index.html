@@ -562,27 +562,24 @@ if (!monkey.jumping && footprintDistance > 35) {
     requestAnimationFrame(update);
 }
 
-// --- CONTROLES DE TECLADO (Espacio para saltar / Doble Espacio para pausar) ---
+// --- CONTROLES DE TECLADO (PC) ---
 window.addEventListener("keydown", (e) => {
     if (e.code === "Space") {
         let currentTime = Date.now();
         let timeDiff = currentTime - lastSpacePress;
 
-        // Lógica de Pausa con DOBLE ESPACIO
         if (timeDiff > 0 && timeDiff < 250) {
             isPaused = !isPaused;
             if (isPaused) {
                 currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
             }
             lastSpacePress = 0;
-            return; // No salta si está pausando
+            return;
         }
 
         lastSpacePress = currentTime;
+        if (isPaused) return;
 
-        if (isPaused) return; // No salta si el juego está pausado
-
-        // Lógica de SALTO
         if (!gameStarted) {
             gameStarted = true;
         } else if (monkey && !monkey.jumping) {
@@ -596,28 +593,25 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
-// --- CONTROLES TÁCTILES (Toque para saltar / Doble Toque para pausar) ---
+// --- CONTROLES TÁCTILES (MÓVIL) ---
 document.addEventListener('touchstart', function(e) {
     if (e.cancelable) e.preventDefault();
 
     let currentTime = Date.now();
     let timeDiff = currentTime - lastTouchTime;
 
-    // Lógica de Pausa con DOBLE TOQUE
     if (timeDiff > 0 && timeDiff < 250) {
         isPaused = !isPaused;
         if (isPaused) {
             currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
         }
         lastTouchTime = 0;
-        return; // No salta si está pausando
+        return;
     }
 
     lastTouchTime = currentTime;
+    if (isPaused) return;
 
-    if (isPaused) return; // No salta si el juego está pausado
-
-    // Lógica de SALTO
     if (!gameStarted) {
         gameStarted = true;
     } else if (monkey && !monkey.jumping) {
@@ -630,16 +624,10 @@ document.addEventListener('touchstart', function(e) {
     }
 }, { passive: false });
 
-// --- INICIO DEL JUEGO ---
-// Definimos la función para que Android la reconozca bien
-function startEngine() {
-    resizeCanvas();
-    update();
-    console.log("Game Running");
-}
-
-// ¡Ahora sí la ejecutamos!
-startEngine();
+// --- INICIO DEL JUEGO (Limpio de errores) ---
+resizeCanvas();
+update();
+console.log("Game started successfully");
 
 </script>    
 </body>
