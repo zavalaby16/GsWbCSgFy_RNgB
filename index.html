@@ -88,7 +88,7 @@ let footprints = [];
 let footprintTimer = 0;
 let footprintDistance = 0;
 let nextMessageRealTime = Date.now() + 4000;
-let nextLaptopTime = 600 + Math.random() * 500; // Aumentado para menos saturación
+let nextLaptopTime = 200 + Math.random() * 300; // Aumentado para menos saturación
 let currentMessage = "";
 let messageTimer = 0;
 let specialActive = false;
@@ -287,7 +287,8 @@ function spawnHeart() {
 }
 function spawnLaptop() {
     if (laptop === null) {
-        laptop = { x: canvas.width + 200, y: canvas.height * 0.45 };
+        // Reducido a +100 para que aparezca más rápido en los bordes
+        laptop = { x: canvas.width + 100, y: canvas.height * 0.45 };
     }
 }
 
@@ -472,15 +473,29 @@ if (heartDistance > nextHeartDistance) {
             nextMessageRealTime = Date.now() + 6000 + Math.random() * 2000;
         }
         // -------- LAPTOP SPAWN (SISTEMA SEPARADO) --------
-        if (!laptop && gameTime > nextLaptopTime) {
-            spawnLaptop();
-            nextLaptopTime = gameTime + 700 + Math.random() * 500; // Mucho más espacio entre ellas
-        }
+       // -------- CONTROL DE LAPTOP (BUSY MODE) --------
+if (!laptop && gameTime > nextLaptopTime) {
+    spawnLaptop();
+    // Bajamos de 700 a 200 para que no tarden una eternidad.
+    // Al ser 200 + random, el flujo es constante y fluido.
+    nextLaptopTime = gameTime + 200 + Math.random() * 300; 
+}
+// Dentro del bloque donde mueves los objetos:
+if (laptop) {
+    // 0.8 es el punto dulce: se siente fondo, pero tiene ritmo.
+    laptop.x -= gameSpeed * 0.8;
 
-       let baseSpeed = window.innerWidth < 700 ? 5.2 : 4.8;
-        gameSpeed = baseSpeed + (gameTime * 0.00012);
+    // Si sale de pantalla, la liberamos para que el IF de arriba pueda crear otra.
+    if (laptop.x < -100) {
+        laptop = null;
+    }
+}
 
-        if (gameSpeed > 9.5) gameSpeed = 9.5;
+// Tu lógica de velocidad se mantiene igual (Aumento gradual)
+let baseSpeed = window.innerWidth < 700 ? 5.2 : 4.8;
+gameSpeed = baseSpeed + (gameTime * 0.00012);
+
+if (gameSpeed > 9.5) gameSpeed = 9.5;
         // Dibujos base
         drawGround(); drawFootprints(); drawMonkey(); drawSparks();
         // Lógica de Corazones
@@ -542,6 +557,8 @@ if (heartDistance > nextHeartDistance) {
             ctx.drawImage(laptopImg, laptop.x, laptop.y, 55, 55);
         }
             laptop.x -= gameSpeed * 0.18 * deltaTime;
+            
+            
             if (monkey.x + 40 > laptop.x && monkey.x < laptop.x + 40 && monkey.y + 40 > laptop.y - 30 && monkey.y < laptop.y + 10) {
                 laptopCount++; busyOffset += 25; showMessage("Busy mode on"); laptop = null;
                 if (laptopCount >= 5) {
