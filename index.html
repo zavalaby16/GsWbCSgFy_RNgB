@@ -88,7 +88,7 @@ let footprints = [];
 let footprintTimer = 0;
 let footprintDistance = 0;
 let nextMessageRealTime = Date.now() + 4000;
-let nextLaptopTime = 200 + Math.random() * 300; // Aumentado para menos saturación
+let nextLaptopTime = 200 + Math.random() * 400; // Aumentado para menos saturación
 let currentMessage = "";
 let messageTimer = 0;
 let specialActive = false;
@@ -478,12 +478,12 @@ if (!laptop && gameTime > nextLaptopTime) {
     spawnLaptop();
     // Bajamos de 700 a 200 para que no tarden una eternidad.
     // Al ser 200 + random, el flujo es constante y fluido.
-    nextLaptopTime = gameTime + 200 + Math.random() * 300; 
+    nextLaptopTime = gameTime + 400 + Math.random() * 300; 
 }
 // Dentro del bloque donde mueves los objetos:
 if (laptop) {
     // 0.8 es el punto dulce: se siente fondo, pero tiene ritmo.
-    laptop.x -= gameSpeed * 0.8;
+    laptop.x -= gameSpeed * 0.5;
 
     // Si sale de pantalla, la liberamos para que el IF de arriba pueda crear otra.
     if (laptop.x < -100) {
