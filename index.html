@@ -274,7 +274,12 @@ function drawFootprints() {
 // -------------------- CORAZONES Y LAPTOPS --------------------
 function spawnHeart() {
     if (hearts.length > 2) return;
-    hearts.push({ x: canvas.width, y: groundY - 110 + Math.random() * 90, size: 12 });
+    // Esto da un rango desde altura de salto alto hasta casi el suelo
+    hearts.push({ 
+        x: canvas.width, 
+        y: groundY - 150 + Math.random() * 100, 
+        size: 12 
+    });
 }
 
 function spawnLaptop() {
@@ -394,6 +399,7 @@ lastTime = timestamp;
       
       if (monkey.y >= groundY - 58) {
         monkey.y = groundY - 58;
+        monkey.velocityY = 0; // <--- AGREGAR ESTO: Evita que la gravedad se acumule
         monkey.jumping = false;
         }
         
@@ -414,8 +420,15 @@ if (!monkey.jumping && footprintDistance > 35) {
 
         // Spawn Corazón por distancia
         heartDistance += gameSpeed;
-        if (heartDistance > nextHeartDistance) { spawnHeart(); heartDistance = 0; nextHeartDistance = 1500 + Math.random() * 1300; }
 
+// Cuanto más alto es gameSpeed, más rápido llega a la meta
+// Dividimos 10 entre gameSpeed para que la frecuencia escale
+if (heartDistance > nextHeartDistance / (gameSpeed * 0.15)) { 
+    spawnHeart(); 
+    heartDistance = 0; 
+    // Distancia base aleatoria
+    nextHeartDistance = 1500 + Math.random() * 1300; 
+}
         // -------- MENSAJES CON PERSISTENCIA (MÁS ESPACIADOS) --------
         if (Date.now() > nextMessageRealTime && messageTimer <= 0) {
             
