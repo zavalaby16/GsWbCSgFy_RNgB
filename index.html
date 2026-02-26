@@ -562,66 +562,70 @@ if (!monkey.jumping && footprintDistance > 35) {
     requestAnimationFrame(update);
 }
 
-// <------------- CONTROLES ----------
-document.addEventListener("keydown", function(e) {
+// --- CONTROLES DE TECLADO (Para PC/Laptop) ---
+window.addEventListener("keydown", (e) => {
     if (e.code === "Space") {
-        let currentTime = Date.now();
-        let timeDiff = currentTime - lastSpacePress;
-        // Doble espacio para pausa
-        if (timeDiff < 250) { 
-            isPaused = !isPaused; 
-            if (isPaused) currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
-            lastSpacePress = 0; return;               
-        }
-        lastSpacePress = currentTime;
         if (isPaused) return;
         if (!gameStarted) gameStarted = true;
-        if (!monkey.jumping) {
-            if (!firstJump) { showMessage("Are you turning black?... Interesting..."); firstJump = true; }
-            monkey.velocityY = -16; monkey.jumping = true; // El -16 es hacia ARRIBA
+        if (monkey && !monkey.jumping) {
+            if (!firstJump) { 
+                showMessage("Are you turning black?... Interesting..."); 
+                firstJump = true; 
+            }
+            monkey.velocityY = -16; 
+            monkey.jumping = true;
+        }
+    }
+    if (e.code === "KeyP") {
+        isPaused = !isPaused;
+        if (isPaused) {
+            currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
         }
     }
 });
 
-// --- CONTROLES TÁCTILES (Corregido) ---
-    document.addEventListener('touchstart', function(e) {
-        if (e.cancelable) e.preventDefault();
+// --- CONTROLES TÁCTILES (Para Celulares) ---
+document.addEventListener('touchstart', function(e) {
+    if (e.cancelable) e.preventDefault();
 
-        let currentTime = Date.now();
-        let timeDiff = currentTime - lastTouchTime;
+    let currentTime = Date.now();
+    let timeDiff = currentTime - lastTouchTime;
 
-        if (timeDiff > 0 && timeDiff < 250) {
-            isPaused = !isPaused;
-            if (isPaused) {
-                currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
-            }
-            lastTouchTime = 0;
-            return;
+    if (timeDiff > 0 && timeDiff < 250) {
+        isPaused = !isPaused;
+        if (isPaused) {
+            currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
         }
+        lastTouchTime = 0;
+        return;
+    }
 
-        lastTouchTime = currentTime;
-        if (isPaused) return;
+    lastTouchTime = currentTime;
+    if (isPaused) return;
 
-        if (!gameStarted) {
-            gameStarted = true;
-        } else if (monkey && !monkey.jumping) {
-            monkey.velocityY = -16; 
-            monkey.jumping = true;
-            
-            if (!firstJump) { 
-                showMessage("Are you turning black?... Interesting..."); 
-                firstJump = true; 
-            } // <--- Esta es la llave que faltaba
+    if (!gameStarted) {
+        gameStarted = true;
+    } else if (monkey && !monkey.jumping) {
+        monkey.velocityY = -16; 
+        monkey.jumping = true;
+        if (!firstJump) { 
+            showMessage("Are you turning black?... Interesting..."); 
+            firstJump = true; 
         }
-    }, { passive: false });
+    }
+}, { passive: false });
 
-    // --- INICIO DEL JUEGO ---
-    // Forzamos el inicio
+// --- EL "MOTOR" QUE ENCIENDE TODO ---
+// Esto asegura que Android cargue el juego sí o sí
+function startEngine() {
     resizeCanvas();
     update();
-    console.log("System ready");
+    console.log("Game Running");
+}
 
-    // El Service Worker queda fuera para evitar errores en Android
+// Ejecutamos
+startEngine();
+
 </script>    
 </body>
 </html>
