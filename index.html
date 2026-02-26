@@ -73,7 +73,7 @@ let hearts = [];
 let sparks = [];
 let heartCount = 0;
 let heartDistance = 0;
-let nextHeartDistance = 1200 + Math.random() * 1300;
+let nextHeartDistance = 600 + Math.random() * 600;
     
 // <------------- CARGA DE IMÁGENES ----------
 const laptopImg = new Image();   
@@ -273,15 +273,18 @@ function drawFootprints() {
 }
 // -------------------- CORAZONES Y LAPTOPS --------------------
 function spawnHeart() {
-    if (hearts.length > 2) return;
-    // Esto da un rango desde altura de salto alto hasta casi el suelo
+    if (hearts.length > 4) return; // Permitimos más corazones en pantalla
+
+    // Esto genera niveles desde muy arriba hasta el suelo
+    // groundY - 160 (Salto alto) hasta groundY - 40 (Suelo)
+    let alturaNivel = groundY - 160 + Math.random() * 120;
+
     hearts.push({ 
         x: canvas.width, 
-        y: groundY - 150 + Math.random() * 100, 
+        y: alturaNivel, 
         size: 12 
     });
 }
-
 function spawnLaptop() {
     if (laptop === null) {
         laptop = { x: canvas.width + 200, y: canvas.height * 0.45 };
@@ -421,13 +424,19 @@ if (!monkey.jumping && footprintDistance > 35) {
         // Spawn Corazón por distancia
         heartDistance += gameSpeed;
 
-// Cuanto más alto es gameSpeed, más rápido llega a la meta
-// Dividimos 10 entre gameSpeed para que la frecuencia escale
-if (heartDistance > nextHeartDistance / (gameSpeed * 0.15)) { 
+// Entre más rápido vas, más rápido se "agota" la distancia de espera
+// Usamos gameSpeed para que la frecuencia escale sola
+if (heartDistance > nextHeartDistance) { 
     spawnHeart(); 
     heartDistance = 0; 
-    // Distancia base aleatoria
-    nextHeartDistance = 1500 + Math.random() * 1300; 
+
+    // Aquí está el truco: la nueva distancia depende de la velocidad
+    // A más velocidad, el rango de aparición es más corto
+    let reduccionPorVelocidad = gameSpeed * 50; 
+    nextHeartDistance = (1000 - reduccionPorVelocidad) + Math.random() * 800;
+
+    // Ponemos un piso mínimo para que no salgan uno encima de otro
+    if (nextHeartDistance < 400) nextHeartDistance = 400;
 }
         // -------- MENSAJES CON PERSISTENCIA (MÁS ESPACIADOS) --------
         if (Date.now() > nextMessageRealTime && messageTimer <= 0) {
