@@ -325,7 +325,7 @@ function drawObstacles() {
         let obs = obstacles[i];
         ctx.beginPath(); ctx.arc(obs.x, obs.y, 10, 0, Math.PI * 2); ctx.arc(obs.x + 12, obs.y, 12, 0, Math.PI * 2); ctx.arc(obs.x + 20, obs.y, 10, 0, Math.PI * 2); ctx.fill();
         obs.x -= gameSpeed;
-        if (obs.x < -50) obstacles.splice(i, 1);
+        if (obs.x < -50) obstacles.splice(i, 3); // Ahora: 1.3 hace que sean un poco más rápidas, dando sensación de fluidez
     }
 }
 
@@ -419,8 +419,13 @@ if (!monkey.jumping && footprintDistance > 35) {
         gameTime += deltaTime;
         
         // Spawn de nubes respirado
-        if (obstacles.length === 0 || (canvas.width - obstacles[obstacles.length-1].x > 260)) spawnObstacle();
+        // La distancia necesaria se reduce un poco conforme gameSpeed sube
+        // para que el cielo no se vea vacío cuando vas rápido.
+        let distanciaMinima = 300 - (gameSpeed * 10); 
 
+if (obstacles.length === 0 || (canvas.width - obstacles[obstacles.length-1].x > distanciaMinima)) {
+    spawnObstacle();
+}
         // Spawn Corazón por distancia
         heartDistance += gameSpeed;
 
