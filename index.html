@@ -324,24 +324,22 @@ function drawObstacles() {
     for (let i = obstacles.length - 1; i >= 0; i--) {
         let obs = obstacles[i];
         
-        // Dibujo de la nube
+        // Dibujo
         ctx.beginPath(); 
         ctx.arc(obs.x, obs.y, 10, 0, Math.PI * 2); 
         ctx.arc(obs.x + 12, obs.y, 12, 0, Math.PI * 2); 
         ctx.arc(obs.x + 20, obs.y, 10, 0, Math.PI * 2); 
         ctx.fill();
 
-        // MOVIMIENTO: Mantén el multiplicador para la fluidez
-        obs.x -= gameSpeed * 1.3;
+        // AJUSTE: Bajamos de 1.3 a 1.1 para que sea más natural
+        obs.x -= gameSpeed * 1.1;
 
-        // ELIMINACIÓN: Aquí estaba el error. 
-        // Cambiamos -50 por -100 para darles margen de salida total.
+        // Mantenemos el margen de -100 para que no desaparezcan antes de tiempo
         if (obs.x < -100) { 
             obstacles.splice(i, 1);
         }
     }
 }
-
 function spawnObstacle() {
     const levels = [canvas.height * 0.5, canvas.height * 0.5];
     obstacles.push({ x: canvas.width + Math.random() * 200, y: levels[Math.floor(Math.random() * levels.length)] });
