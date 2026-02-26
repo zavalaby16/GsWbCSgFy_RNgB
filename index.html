@@ -583,59 +583,45 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
-// --- CONTROLES TÁCTILES (Versión Ultra-Compatible) ---
-document.addEventListener('touchstart', function(e) {
-    // Evita el scroll y zoom accidental en Android
-    if (e.cancelable) e.preventDefault();
+// --- CONTROLES TÁCTILES (Corregido) ---
+    document.addEventListener('touchstart', function(e) {
+        if (e.cancelable) e.preventDefault();
 
-    var currentTime = Date.now();
-    var timeDiff = currentTime - lastTouchTime;
+        let currentTime = Date.now();
+        let timeDiff = currentTime - lastTouchTime;
 
-    // Lógica de Pausa
-    if (timeDiff > 0 && timeDiff < 250) {
-        isPaused = !isPaused;
-        if (isPaused) {
-            currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
+        if (timeDiff > 0 && timeDiff < 250) {
+            isPaused = !isPaused;
+            if (isPaused) {
+                currentPauseMsg = pauseMessages[Math.floor(Math.random() * pauseMessages.length)];
+            }
+            lastTouchTime = 0;
+            return;
         }
-        lastTouchTime = 0;
-        return;
-    }
 
-    lastTouchTime = currentTime;
+        lastTouchTime = currentTime;
+        if (isPaused) return;
 
-    if (isPaused) return;
-
-    // Lógica de Salto
-    if (!gameStarted) {
-        gameStarted = true;
-    } else if (monkey && !monkey.jumping) {
-        if (!firstJump) { 
-            showMessage("Are you turning black?... Interesting..."); 
-            firstJump = true; 
+        if (!gameStarted) {
+            gameStarted = true;
+        } else if (monkey && !monkey.jumping) {
+            monkey.velocityY = -16; 
+            monkey.jumping = true;
+            
+            if (!firstJump) { 
+                showMessage("Are you turning black?... Interesting..."); 
+                firstJump = true; 
+            } // <--- Esta es la llave que faltaba
         }
-        monkey.velocityY = -16;
-        monkey.jumping = true;
-    }
-}, { passive: false });
+    }, { passive: false });
 
-// --- INICIO DEL JUEGO ---
-// Usamos window.onload para asegurar que Android ya procesó todo el canvas
-window.onload = function() {
+    // --- INICIO DEL JUEGO ---
+    // Forzamos el inicio
     resizeCanvas();
     update();
-console.log(" System ready ");
-};
-// Comentamos el Service Worker correctamente para que no de error
-/*
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker.register("./sw.js")
-      .then(() => console.log("Service Worker registrado"))
-      .catch(err => console.log("SW error:", err));
-  });
-}
-*/
+    console.log("System ready");
 
+    // El Service Worker queda fuera para evitar errores en Android
 </script>    
 </body>
 </html>
